@@ -1,6 +1,6 @@
 ## Progress
 
-- [ ] LEC 1: [Introduction](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-intro.pdf) 
+- [x] LEC 1: [Introduction](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-intro.pdf)
       and [examples](https://pdos.csail.mit.edu/6.S081/2021/lec/l-overview/)
       (handouts: [xv6 book](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf); 
       2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-overview.txt), 
