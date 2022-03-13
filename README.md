@@ -7,7 +7,7 @@
       [video](https://youtu.be/L6YqHxYHa7A))
   - [x] Preparation: [Read chapter 1](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf)
         (for your amusement: [Unix](https://www.youtube.com/watch?v=tc4ROCJYbm0))
-  - [ ] Assignment: [Lab util: Unix utilities](https://pdos.csail.mit.edu/6.S081/2021/labs/util.html)
+  - [x] Assignment: [Lab util: Unix utilities](https://pdos.csail.mit.edu/6.S081/2021/labs/util.html)
 
 - [ ] LEC 2: [C](https://pdos.csail.mit.edu/6.S081/2021/lec/6S081-Intro-to-C-Fa21.pdf) and [gdb](https://pdos.csail.mit.edu/6.S081/2021/lec/gdb_slides.pdf)
   - [ ] Preparation: 2.9 (Bitwise operators) and 
