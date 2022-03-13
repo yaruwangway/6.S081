@@ -10,7 +10,7 @@
   - [x] Assignment: [Lab util: Unix utilities](https://pdos.csail.mit.edu/6.S081/2021/labs/util.html)
 
 - [ ] LEC 2: [C](https://pdos.csail.mit.edu/6.S081/2021/lec/6S081-Intro-to-C-Fa21.pdf) and [gdb](https://pdos.csail.mit.edu/6.S081/2021/lec/gdb_slides.pdf)
-  - [ ] Preparation: 2.9 (Bitwise operators) and 
+  - [x] Preparation: 2.9 (Bitwise operators) and 
         5.1 (Pointers and addresses) through 5.6 (Pointer arrays) and 
         6.4 (pointers to structures) by Kernighan and Ritchie (K&R)
 
