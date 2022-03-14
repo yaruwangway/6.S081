@@ -15,10 +15,10 @@
         6.4 (pointers to structures) by Kernighan and Ritchie (K&R)
 
 - [ ] LEC 3: [OS organization and system calls](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-osorg.pdf) 
-      (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec-los.txt), 
+      (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-os.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-os-boards.pdf), 
       [video](https://youtu.be/o44d---Dk4o))
-  - [ ] Preparation: [Read chapter 2](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) 
+  - [x] Preparation: [Read chapter 2](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) 
         and xv6 code: 
         [kernel/proc.h](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/proc.h), 
         [kernel/defs.h](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/defs.h), 
