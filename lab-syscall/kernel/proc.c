@@ -302,6 +302,9 @@ fork(void)
   np->cwd = idup(p->cwd);
 
   safestrcpy(np->name, p->name, sizeof(p->name));
+  
+  // copy parent trace mask
+  np->tracemask = p->tracemask;
 
   pid = np->pid;
 
