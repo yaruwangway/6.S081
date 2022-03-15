@@ -1,0 +1,19 @@
+make: 'kernel/kernel' is up to date.
+== Test trace 32 grep == 
+$ make qemu-gdb
+trace 32 grep: OK (0.8s) 
+== Test trace all grep == 
+$ make qemu-gdb
+trace all grep: OK (1.0s) 
+== Test trace nothing == 
+$ make qemu-gdb
+trace nothing: OK (1.0s) 
+== Test trace children == 
+$ make qemu-gdb
+trace children: OK (11.0s) 
+== Test sysinfotest == 
+$ make qemu-gdb
+sysinfotest: OK (1.8s) 
+== Test time == 
+time: OK 
+Score: 35/35

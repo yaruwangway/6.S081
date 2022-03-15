@@ -28,7 +28,7 @@
         [user/init.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/user/init.c), 
         and skim [kernel/proc.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/proc.c) and 
         [kernel/exec.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/exec.c)
-  - [ ] Assignment: [Lab syscall: System calls](https://pdos.csail.mit.edu/6.S081/2021/labs/syscall.html)
+  - [x] Assignment: [Lab syscall: System calls](https://pdos.csail.mit.edu/6.S081/2021/labs/syscall.html)
 
 - [ ] LEC 4: [Page tables](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-vm.pdf) 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-vm.txt), 
