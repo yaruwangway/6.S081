@@ -30,7 +30,7 @@
         [kernel/exec.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/exec.c)
   - [x] Assignment: [Lab syscall: System calls](https://pdos.csail.mit.edu/6.S081/2021/labs/syscall.html)
 
-- [ ] LEC 4: [Page tables](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-vm.pdf) 
+- [x] LEC 4: [Page tables](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-vm.pdf) 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-vm.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-vm-boards.pdf), 
       [video](https://youtu.be/f1Hpjty3TT8))
