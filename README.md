@@ -34,7 +34,7 @@
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-vm.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-vm-boards.pdf), 
       [video](https://youtu.be/f1Hpjty3TT8))
-  - [ ] Preparation: Read [Chapter 3](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) and 
+  - [x] Preparation: Read [Chapter 3](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) and 
         [kernel/memlayout.h](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/memlayout.h), 
         [kernel/vm.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/vm.c), 
         [kernel/kalloc.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/kalloc.c), 
