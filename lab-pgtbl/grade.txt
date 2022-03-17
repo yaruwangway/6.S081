@@ -1,0 +1,20 @@
+make: 'kernel/kernel' is up to date.
+== Test pgtbltest == 
+$ make qemu-gdb
+(1.4s) 
+== Test   pgtbltest: ugetpid == 
+  pgtbltest: ugetpid: OK 
+== Test   pgtbltest: pgaccess == 
+  pgtbltest: pgaccess: OK 
+== Test pte printout == 
+$ make qemu-gdb
+pte printout: OK (0.9s) 
+== Test answers-pgtbl.txt == answers-pgtbl.txt: OK 
+== Test usertests == 
+$ make qemu-gdb
+(156.4s) 
+== Test   usertests: all tests == 
+  usertests: all tests: OK 
+== Test time == 
+time: OK 
+Score: 46/46
