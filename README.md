@@ -45,7 +45,7 @@
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-riscv.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-riscv-slides.pdf), 
       [video](https://youtu.be/s-Z5t_yTyTM))
-  - [ ] Preparation: Read [Calling Convention](https://pdos.csail.mit.edu/6.S081/2021/readings/riscv-calling.pdf)
+  - [x] Preparation: Read [Calling Convention](https://pdos.csail.mit.edu/6.S081/2021/readings/riscv-calling.pdf)
   - [x] Assignment: [Lab pgtbl: Page tables](https://pdos.csail.mit.edu/6.S081/2021/labs/pgtbl.html)
 
 - [ ] LEC 6: [Isolation & system call entry/exit](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-syscall.pdf) 
