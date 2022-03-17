@@ -77,11 +77,40 @@ sys_sleep(void)
 
 
 #ifdef LAB_PGTBL
+#define MAX_NPAGES_TO_SCAN 512
+#ifndef CHAR_BIT
+#define CHAR_BIT 8
+#endif
 int
 sys_pgaccess(void)
 {
   // lab pgtbl: your code here.
-  return 0;
+  uint64 va;
+  int npages;
+  uint64 bufp;
+  if (argaddr(0, &va) < 0 ||
+      argint(1, &npages) < 0 ||
+      argaddr(2, &bufp) < 0 ||
+      npages < 0 ||
+      npages > MAX_NPAGES_TO_SCAN)
+    return -1;
+
+  int npages_roundup = (npages+CHAR_BIT-1) & ~(CHAR_BIT-1);
+  char temp[npages_roundup / CHAR_BIT];
+  memset(temp, 0, sizeof(temp));
+  pagetable_t pagetable = myproc()->pagetable;
+  pte_t *pte;
+  for (int i = 0; i < npages; va += PGSIZE, i++) {
+    pte = walk(pagetable, va, 0);
+    if (pte == 0)
+      continue;
+    if (*pte & PTE_A) {
+      temp[i/CHAR_BIT] |= (1 << (i % CHAR_BIT));
+    }
+    *pte &= ~PTE_A;
+  }
+
+  return copyout(pagetable, bufp, temp, sizeof(temp));
 }
 #endif
 
