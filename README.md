@@ -51,7 +51,7 @@
 - [ ] LEC 6: [Isolation & system call entry/exit](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-syscall.pdf) 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-internal.txt), 
       [video](https://youtu.be/T26UuauaxWA)) 
-  - [ ] Preparation: Read [Chapter 4, except 4.6](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) and 
+  - [x] Preparation: Read [Chapter 4, except 4.6](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) and 
         [kernel/riscv.h](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/riscv.h), 
         [kernel/trampoline.S](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/trampoline.S), and 
         [kernel/trap.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/trap.c) 
