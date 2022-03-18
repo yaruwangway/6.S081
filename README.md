@@ -41,7 +41,7 @@
         [kernel/riscv.h](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/riscv.h), and 
         [kernel/exec.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/exec.c)
 
-- [ ] LEC 5: [GDB, calling conventions and stack frames RISC-V](https://pdos.csail.mit.edu/6.S081/2021/lec/gdb_slides.pdf) 
+- [x] LEC 5: [GDB, calling conventions and stack frames RISC-V](https://pdos.csail.mit.edu/6.S081/2021/lec/gdb_slides.pdf) 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-riscv.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-riscv-slides.pdf), 
       [video](https://youtu.be/s-Z5t_yTyTM))
