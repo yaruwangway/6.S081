@@ -63,7 +63,7 @@
   - [x] Preparation: Read [Section 4.6](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) 
   - [x] Assignment: [Lab traps: Traps](https://pdos.csail.mit.edu/6.S081/2021/labs/traps.html)
 
-- [ ] LEC 8: [Q&A labs](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-qa1.pdf) 
+- [x] LEC 8: [Q&A labs](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-qa1.pdf) 
 
 - [ ] LEC 9: [Interrupts](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-interrupts.pdf) 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-interrupt.txt), 
