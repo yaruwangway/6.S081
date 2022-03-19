@@ -61,7 +61,7 @@
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-pgfaults.pdf), 
       [video](https://youtu.be/KSYO-gTZo0A)) 
   - [x] Preparation: Read [Section 4.6](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) 
-  - [ ] Assignment: [Lab traps: Traps](https://pdos.csail.mit.edu/6.S081/2021/labs/traps.html)
+  - [x] Assignment: [Lab traps: Traps](https://pdos.csail.mit.edu/6.S081/2021/labs/traps.html)
 
 - [ ] LEC 8: [Q&A labs](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-qa1.pdf) 
 

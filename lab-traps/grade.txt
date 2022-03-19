@@ -1,0 +1,20 @@
+make: 'kernel/kernel' is up to date.
+== Test answers-traps.txt == answers-traps.txt: OK 
+== Test backtrace test == 
+$ make qemu-gdb
+backtrace test: OK (0.7s) 
+== Test running alarmtest == 
+$ make qemu-gdb
+(6.5s) 
+== Test   alarmtest: test0 == 
+  alarmtest: test0: OK 
+== Test   alarmtest: test1 == 
+  alarmtest: test1: OK 
+== Test   alarmtest: test2 == 
+  alarmtest: test2: OK 
+== Test usertests == 
+$ make qemu-gdb
+usertests: OK (151.7s) 
+== Test time == 
+time: OK 
+Score: 85/85
