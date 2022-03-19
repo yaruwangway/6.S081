@@ -79,6 +79,11 @@ usertrap(void)
   // give up the CPU if this is a timer interrupt.
   if(which_dev == 2) {
     if (p->ticks && p->passed_ticks++ > p->ticks) {
+      // store ticks into passed ticks temporarily, util sigreturn
+      p->passed_ticks = p->ticks;
+      // disable alarm until sigreturn
+      p->ticks = 0;
+
       /**
        * save user trapframe registers into alarm trapframe
        * so sigreturn can restore interrupted process status
@@ -86,8 +91,6 @@ usertrap(void)
       memmove(p->alarm_trapframe, p->trapframe, sizeof(struct trapframe));
       // epc point to handler function
       p->trapframe->epc = p->handler_p;
-      // reset passed ticks
-      p->passed_ticks = 0;
     }
 
     yield();

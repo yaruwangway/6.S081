@@ -119,6 +119,10 @@ sys_sigreturn(void)
   struct proc *p = myproc();
   // restore trapframe of interrupted user process
   memmove(p->trapframe, p->alarm_trapframe, sizeof(struct trapframe));
+  // restore handler ticks
+  p->ticks = p->passed_ticks;
+  // reset passed ticks
+  p->passed_ticks = 0;
 
   return 0;
 }
