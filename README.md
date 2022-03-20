@@ -56,7 +56,7 @@
         [kernel/trampoline.S](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/trampoline.S), and 
         [kernel/trap.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/trap.c) 
 
-- [ ] LEC 7: [Page faults](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-usingvm.pdf) 
+- [x] LEC 7: [Page faults](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-usingvm.pdf) 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-pgfaults.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-pgfaults.pdf), 
       [video](https://youtu.be/KSYO-gTZo0A)) 
