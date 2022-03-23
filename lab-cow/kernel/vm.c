@@ -346,9 +346,18 @@ int
 copyout(pagetable_t pagetable, uint64 dstva, char *src, uint64 len)
 {
   uint64 n, va0, pa0;
+  pte_t *pte;
 
   while(len > 0){
     va0 = PGROUNDDOWN(dstva);
+    pte = walk(pagetable, va0, 0);
+    if(pte == 0 || ((*pte & PTE_V) == 0) || ((*pte & PTE_U) == 0))
+      return -1;
+    if ((*pte & PTE_COW)) {
+      if (alloc_cow(pagetable, va0) < 0)
+        return -1;
+    }
+
     pa0 = walkaddr(pagetable, va0);
     if(pa0 == 0)
       return -1;
@@ -432,6 +441,11 @@ copyinstr(pagetable_t pagetable, char *dst, uint64 srcva, uint64 max)
   }
 }
 
+// alloc new physical page for va if more than one reference to
+// the original pa,
+// otherwise, remap to original pa.
+// new pa will store in *npa
+// return 0 on success, -1 on fail
 int
 alloc_cow(pagetable_t pagetable, uint64 va)
 {
