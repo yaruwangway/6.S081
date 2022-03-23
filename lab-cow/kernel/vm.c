@@ -438,23 +438,40 @@ alloc_cow(pagetable_t pagetable, uint64 va)
   pte_t *pte = walk(pagetable, va, 0);
   if (pte == 0)
     return -1;
+  // check if is COW pte
   if ((*pte & PTE_COW) == 0)
     return -1;
   
+  uint64 pa = PTE2PA(*pte);
+  // remove COW flag and enable W flag
+  uint flags = (PTE_FLAGS(*pte) & ~PTE_COW) | PTE_W;
+
+  // if is the last reference, don't alloc new physical page, just remap
+  if (kget_refcount(pa) == 1) {
+    if (mappages(pagetable, PGROUNDDOWN(va), PGSIZE, pa, flags) != 0)
+      return -1;
+    return 0;
+  }
+
   char *mem;
   if ((mem = kalloc()) == 0)
     return -1;
   
-  uint64 pa = PTE2PA(*pte);
-  uint flags = PTE_FLAGS(*pte) | PTE_W;
+  // copy physical memory lazily
   memmove(mem, (char *)pa, PGSIZE);
+
   //kcheck_invariant();
+
+  // now, map va to new pa
   if (mappages(pagetable, PGROUNDDOWN(va), PGSIZE, (uint64)mem, flags) != 0) {
     kfree(mem);
     return -1;
   }
+  // correct reference count
   kincr_refcount((uint64)mem);
   kdecr_refcount(pa);
+
   //kcheck_invariant();
+
   return 0;
 }

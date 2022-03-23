@@ -189,7 +189,7 @@ main(int argc, char *argv[])
   threetest();
   threetest();
 
-  //filetest();
+  filetest();
 
   printf("ALL COW TESTS PASSED\n");
 
