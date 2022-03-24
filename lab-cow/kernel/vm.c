@@ -178,7 +178,6 @@ uvmunmap(pagetable_t pagetable, uint64 va, uint64 npages, int do_free)
       panic("uvmunmap: not a leaf");
     if(do_free){
       uint64 pa = PTE2PA(*pte);
-      kdecr_refcount(pa);
       kfree((void*)pa);
     }
     *pte = 0;
@@ -211,7 +210,6 @@ uvminit(pagetable_t pagetable, uchar *src, uint sz)
   mem = kalloc();
   memset(mem, 0, PGSIZE);
   mappages(pagetable, 0, PGSIZE, (uint64)mem, PTE_W|PTE_R|PTE_X|PTE_U);
-  kincr_refcount((uint64)mem);
   memmove(mem, src, sz);
 }
 
@@ -239,7 +237,6 @@ uvmalloc(pagetable_t pagetable, uint64 oldsz, uint64 newsz)
       uvmdealloc(pagetable, a, oldsz);
       return 0;
     }
-    kincr_refcount((uint64)mem);
   }
   return newsz;
 }
@@ -350,6 +347,8 @@ copyout(pagetable_t pagetable, uint64 dstva, char *src, uint64 len)
 
   while(len > 0){
     va0 = PGROUNDDOWN(dstva);
+    if (va0 >= MAXVA)
+      return -1;
     pte = walk(pagetable, va0, 0);
     if(pte == 0 || ((*pte & PTE_V) == 0) || ((*pte & PTE_U) == 0))
       return -1;
@@ -449,6 +448,8 @@ copyinstr(pagetable_t pagetable, char *dst, uint64 srcva, uint64 max)
 int
 alloc_cow(pagetable_t pagetable, uint64 va)
 {
+  if (va >= MAXVA)
+    return -1;
   pte_t *pte = walk(pagetable, va, 0);
   if (pte == 0)
     return -1;
@@ -460,10 +461,19 @@ alloc_cow(pagetable_t pagetable, uint64 va)
   // remove COW flag and enable W flag
   uint flags = (PTE_FLAGS(*pte) & ~PTE_COW) | PTE_W;
 
+  #ifdef DEBUG
+  kcheck_invariant();
+  #endif
+
   // if is the last reference, don't alloc new physical page, just remap
   if (kget_refcount(pa) == 1) {
     if (mappages(pagetable, PGROUNDDOWN(va), PGSIZE, pa, flags) != 0)
       return -1;
+
+    #ifdef DEBUG
+    kcheck_invariant();
+    #endif
+
     return 0;
   }
 
@@ -474,18 +484,17 @@ alloc_cow(pagetable_t pagetable, uint64 va)
   // copy physical memory lazily
   memmove(mem, (char *)pa, PGSIZE);
 
-  //kcheck_invariant();
-
   // now, map va to new pa
   if (mappages(pagetable, PGROUNDDOWN(va), PGSIZE, (uint64)mem, flags) != 0) {
     kfree(mem);
     return -1;
   }
   // correct reference count
-  kincr_refcount((uint64)mem);
   kdecr_refcount(pa);
 
-  //kcheck_invariant();
+  #ifdef DEBUG
+  kcheck_invariant();
+  #endif
 
   return 0;
 }

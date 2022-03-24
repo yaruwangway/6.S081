@@ -66,7 +66,9 @@ void            kinit(void);
 void            kincr_refcount(uint64);
 void            kdecr_refcount(uint64);
 uint8           kget_refcount(uint64);
+#ifdef DEBUG
 void            kcheck_invariant(void);
+#endif
 
 // log.c
 void            initlog(int, struct superblock*);

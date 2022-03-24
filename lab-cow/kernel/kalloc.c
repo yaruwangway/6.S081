@@ -36,8 +36,10 @@ freerange(void *pa_start, void *pa_end)
 {
   char *p;
   p = (char*)PGROUNDUP((uint64)pa_start);
-  for(; p + PGSIZE <= (char*)pa_end; p += PGSIZE)
+  for(; p + PGSIZE <= (char*)pa_end; p += PGSIZE) {
+    kmem.references[PA2REFERENCE_INDEX((uint64)p)] = 1;
     kfree(p);
+  }
 }
 
 // Free the page of physical memory pointed at by v,
@@ -53,7 +55,7 @@ kfree(void *pa)
     panic("kfree");
 
   acquire(&kmem.lock);
-  if (kmem.references[PA2REFERENCE_INDEX((uint64)pa)]) {
+  if (--kmem.references[PA2REFERENCE_INDEX((uint64)pa)]) {
     release(&kmem.lock);
     return;
   }
@@ -81,7 +83,7 @@ kalloc(void)
   acquire(&kmem.lock);
   r = kmem.freelist;
   if(r) {
-    if (kmem.references[PA2REFERENCE_INDEX((uint64)r)])
+    if (kmem.references[PA2REFERENCE_INDEX((uint64)r)]++)
       panic("kalloc: physical page reference count is non-zero");
     kmem.freelist = r->next;
   }
@@ -122,6 +124,8 @@ kget_refcount(uint64 pa)
   release(&kmem.lock);
   return cnt;
 }
+
+#ifdef DEBUG
 
 #include "proc.h"
 extern struct proc proc[];
@@ -180,3 +184,5 @@ kcheck_invariant()
   }
   release(&kmem.lock);
 }
+
+#endif
