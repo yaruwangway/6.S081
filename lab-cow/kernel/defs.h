@@ -64,8 +64,7 @@ void*           kalloc(void);
 void            kfree(void *);
 void            kinit(void);
 void            kincr_refcount(uint64);
-void            kdecr_refcount(uint64);
-uint8           kget_refcount(uint64);
+uint8           kcheck_and_decr_refcount(uint64);
 #ifdef DEBUG
 void            kcheck_invariant(void);
 #endif

@@ -307,12 +307,12 @@ uvmcopy(pagetable_t old, pagetable_t new, uint64 sz)
     if((*pte & PTE_V) == 0)
       panic("uvmcopy: page not present");
     pa = PTE2PA(*pte);
-    // clear PTE_W flag in child
+    // clear PTE_W flag and mark as COW in child
     flags = (PTE_FLAGS(*pte) & ~PTE_W) | PTE_COW;
     // map to same physical page
     if (mappages(new, i, PGSIZE, pa, flags) != 0)
       goto err;
-    // clear PTE_W flag in parent
+    // clear PTE_W flag and mark as COW in parent
     *pte = (*pte & ~PTE_W) | PTE_COW;
     kincr_refcount(pa);
   }
@@ -440,11 +440,16 @@ copyinstr(pagetable_t pagetable, char *dst, uint64 srcva, uint64 max)
   }
 }
 
-// alloc new physical page for va if more than one reference to
-// the original pa,
-// otherwise, remap to original pa.
-// new pa will store in *npa
-// return 0 on success, -1 on fail
+/**
+ * alloc new physical page for va if more than one reference to
+ * the original pa,
+ * otherwise, remap to original pa.
+ * return 0 on success, -1 on fail
+ * 
+ * NOTE:
+ * va will not be page aligned
+ * so mappages should take care of page alignment for va
+ */
 int
 alloc_cow(pagetable_t pagetable, uint64 va)
 {
@@ -465,8 +470,18 @@ alloc_cow(pagetable_t pagetable, uint64 va)
   kcheck_invariant();
   #endif
 
-  // if is the last reference, don't alloc new physical page, just remap
-  if (kget_refcount(pa) == 1) {
+  /**
+   * check refcount of pa
+   * if is the last reference, don't alloc new physical page, just remap
+   * otherwise, decrease refcount
+   * 
+   * if check and decr SEPERATELY,
+   * in multi-cpu arch, it is possible that
+   * CPU1: check get refcount == 2, so kalloc new page and mappages, but no decr yet, at the same time
+   * CPU2: check get refcount == 2, so it also kalloc new page, which is unnecessary,
+   *        and will run out of memory in the case of user/cowtest.c:threetest()
+   */
+  if (kcheck_and_decr_refcount(pa) == 1) {
     if (mappages(pagetable, PGROUNDDOWN(va), PGSIZE, pa, flags) != 0)
       return -1;
 
@@ -489,8 +504,6 @@ alloc_cow(pagetable_t pagetable, uint64 va)
     kfree(mem);
     return -1;
   }
-  // correct reference count
-  kdecr_refcount(pa);
 
   #ifdef DEBUG
   kcheck_invariant();

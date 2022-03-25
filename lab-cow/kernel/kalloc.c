@@ -83,8 +83,9 @@ kalloc(void)
   acquire(&kmem.lock);
   r = kmem.freelist;
   if(r) {
-    if (kmem.references[PA2REFERENCE_INDEX((uint64)r)]++)
-      panic("kalloc: physical page reference count is non-zero");
+    //if (kmem.references[PA2REFERENCE_INDEX((uint64)r)]++)
+      //panic("kalloc: physical page reference count is non-zero");
+    kmem.references[PA2REFERENCE_INDEX((uint64)r)] = 1;
     kmem.freelist = r->next;
   }
   release(&kmem.lock);
@@ -98,29 +99,32 @@ void
 kincr_refcount(uint64 pa)
 {
   if ((char*)pa < end || pa >= PHYSTOP)
-    return;
+    panic("kincr_refcount");
   acquire(&kmem.lock);
   kmem.references[PA2REFERENCE_INDEX(pa)]++;
   release(&kmem.lock);
 }
 
-void
-kdecr_refcount(uint64 pa)
-{
-  if ((char*)pa < end || pa >= PHYSTOP)
-    return;
-  acquire(&kmem.lock);
-  kmem.references[PA2REFERENCE_INDEX(pa)]--;
-  release(&kmem.lock);
-}
-
+/**
+ * check refcount of pa,
+ * and do decrease if refcount != 1
+ * 
+ * IT IS IMPORTANT:
+ * hold lock to check and decr at the same time,
+ * in case of multi-cpu arch to disturb the refcount of one pa,
+ * which will result into unnecessary COW page alloc, and run out of memory.
+ * 
+ * see kernel/vm.c for more detailed comment
+ */
 uint8
-kget_refcount(uint64 pa)
+kcheck_and_decr_refcount(uint64 pa)
 {
   if ((char*)pa < end || pa >= PHYSTOP)
-    return 100;
+    panic("kcheck_and_decr_refcount");
   acquire(&kmem.lock);
-  uint8 cnt = kmem.references[PA2REFERENCE_INDEX(pa)];
+  uint8 cnt = kmem.references[PA2REFERENCE_INDEX(pa)] == 1 
+    ? kmem.references[PA2REFERENCE_INDEX(pa)] 
+    : kmem.references[PA2REFERENCE_INDEX(pa)]--;
   release(&kmem.lock);
   return cnt;
 }
