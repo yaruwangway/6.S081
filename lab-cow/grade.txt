@@ -1,0 +1,22 @@
+make: 'kernel/kernel' is up to date.
+== Test running cowtest == 
+$ make qemu-gdb
+(4.9s) 
+== Test   simple == 
+  simple: OK 
+== Test   three == 
+  three: OK 
+== Test   file == 
+  file: OK 
+== Test usertests == 
+$ make qemu-gdb
+(144.7s) 
+== Test   usertests: copyin == 
+  usertests: copyin: OK 
+== Test   usertests: copyout == 
+  usertests: copyout: OK 
+== Test   usertests: all tests == 
+  usertests: all tests: OK 
+== Test time == 
+time: OK 
+Score: 110/110
