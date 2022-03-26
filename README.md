@@ -69,7 +69,7 @@
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-interrupt.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-interrupt.pdf), 
       [video](https://youtu.be/zRnGNndcVEA)) 
-  - [ ] Preparation: Read [Chapter 5](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) and 
+  - [x] Preparation: Read [Chapter 5](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) and 
         [kernel/kernelvec.S](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/kernelvec.S), 
         [kernel/plic.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/plic.c), 
         [kernel/console.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/console.c), 
