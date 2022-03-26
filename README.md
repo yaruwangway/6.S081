@@ -65,7 +65,7 @@
 
 - [x] LEC 8: [Q&A labs](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-qa1.pdf) 
 
-- [ ] LEC 9: [Interrupts](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-interrupts.pdf) 
+- [x] LEC 9: [Interrupts](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-interrupts.pdf) 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-interrupt.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-interrupt.pdf), 
       [video](https://youtu.be/zRnGNndcVEA)) 
