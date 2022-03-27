@@ -77,7 +77,7 @@
         [kernel/printf.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/printf.c) 
   - [x] Assignment: [Lab cow: Copy-on-write fork](https://pdos.csail.mit.edu/6.S081/2021/labs/cow.html)
 
-- [ ] LEC 10: [Multiprocessors and locking](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-locks.pdf) 
+- [x] LEC 10: [Multiprocessors and locking](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-locks.pdf) 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-lockv2.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-lock.pdf), 
       [video](https://youtu.be/NGXu3vN7yAk)) 
