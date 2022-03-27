@@ -81,7 +81,7 @@
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-lockv2.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-lock.pdf), 
       [video](https://youtu.be/NGXu3vN7yAk)) 
-  - [ ] Preparation: Read ["Locking"](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) with 
+  - [x] Preparation: Read ["Locking"](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) with 
         [kernel/spinlock.h](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/spinlock.h) and 
         [kernel/spinlock.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/spinlock.c) 
 
