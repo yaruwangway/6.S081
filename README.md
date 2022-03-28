@@ -88,7 +88,7 @@
 - [ ] LEC 11: [Scheduling 1](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-threads.pdf) 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-threads.txt), 
       [video](https://youtu.be/vsgrTHY5tkg)) 
-  - [ ] Preparation: Read ["Scheduling"](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) through Section 7.4, and 
+  - [x] Preparation: Read ["Scheduling"](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf) through Section 7.4, and 
         [kernel/proc.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/proc.c), 
         [kernel/swtch.S](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/swtch.S) 
 
