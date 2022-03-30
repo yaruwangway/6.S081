@@ -96,7 +96,7 @@
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-coordination.txt), 
       [code](https://pdos.csail.mit.edu/6.S081/2021/lec/l-coordination.c), 
       [video](https://youtu.be/gP67sJ4PTnc)) 
-  - [ ] Preparation: Read remainder of ["Scheduling"](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf), and corresponding parts of 
+  - [x] Preparation: Read remainder of ["Scheduling"](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf), and corresponding parts of 
         [kernel/proc.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/proc.c), 
         [kernel/sleeplock.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/sleeplock.c) 
   - [ ] Assignment: [Lab thread: Multithreading](https://pdos.csail.mit.edu/6.S081/2021/labs/thread.html)
