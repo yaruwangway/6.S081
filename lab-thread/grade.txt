@@ -1,0 +1,14 @@
+make: 'kernel/kernel' is up to date.
+== Test uthread == 
+$ make qemu-gdb
+uthread: OK (1.4s) 
+== Test answers-thread.txt == answers-thread.txt: OK 
+== Test ph_safe == make: 'ph' is up to date.
+ph_safe: OK (10.0s) 
+== Test ph_fast == make: 'ph' is up to date.
+ph_fast: OK (23.4s) 
+== Test barrier == gcc -o barrier -g -O2 -DSOL_THREAD -DLAB_THREAD notxv6/barrier.c -pthread
+barrier: OK (2.8s) 
+== Test time == 
+time: OK 
+Score: 60/60

@@ -30,7 +30,30 @@ barrier()
   // Block until all threads have called barrier() and
   // then increment bstate.round.
   //
-  
+  pthread_mutex_lock(&bstate.barrier_mutex);
+  // record current round, for other threads to exit current round waiting
+  int cur_round = bstate.round;
+  // one new thread reached barrier
+  bstate.nthread++;
+  // shout out to every other waiting thread: one new reached, check is everyone here
+  pthread_cond_broadcast(&bstate.barrier_cond);
+
+  /**
+   * check in THIS round, has every thread reached barrier
+   * if not, block, wait on conditional variable
+   *
+   * IMPORTANT:
+   * do not reset bstate.nthread, just increment,
+   * and use cyclic calculation to get nthread reached in THIS round
+   */
+  while (bstate.round == cur_round && (bstate.nthread - bstate.round * nthread) < nthread) {
+    pthread_cond_wait(&bstate.barrier_cond, &bstate.barrier_mutex);
+  }
+
+  // everyone reached, start new round
+  bstate.round = cur_round + 1;
+
+  pthread_mutex_unlock(&bstate.barrier_mutex);
 }
 
 static void *

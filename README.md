@@ -99,7 +99,7 @@
   - [x] Preparation: Read remainder of ["Scheduling"](https://pdos.csail.mit.edu/6.S081/2021/xv6/book-riscv-rev2.pdf), and corresponding parts of 
         [kernel/proc.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/proc.c), 
         [kernel/sleeplock.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/sleeplock.c) 
-  - [ ] Assignment: [Lab thread: Multithreading](https://pdos.csail.mit.edu/6.S081/2021/labs/thread.html)
+  - [x] Assignment: [Lab thread: Multithreading](https://pdos.csail.mit.edu/6.S081/2021/labs/thread.html)
 
 - [ ] LEC 13: [Q&A labs](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-qa2.pdf) 
 
