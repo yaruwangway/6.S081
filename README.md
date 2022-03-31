@@ -101,7 +101,7 @@
         [kernel/sleeplock.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/sleeplock.c) 
   - [x] Assignment: [Lab thread: Multithreading](https://pdos.csail.mit.edu/6.S081/2021/labs/thread.html)
 
-- [ ] LEC 13: [Q&A labs](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-qa2.pdf) 
+- [x] LEC 13: [Q&A labs](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-qa2.pdf) 
 
 - [ ] LEC 14: File systems 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-fs.txt), 
