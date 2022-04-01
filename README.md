@@ -92,7 +92,7 @@
         [kernel/proc.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/proc.c), 
         [kernel/swtch.S](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/swtch.S) 
 
-- [ ] LEC 12: [Scheduling 2](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-threads2.pdf) 
+- [x] LEC 12: [Scheduling 2](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-threads2.pdf) 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-coordination.txt), 
       [code](https://pdos.csail.mit.edu/6.S081/2021/lec/l-coordination.c), 
       [video](https://youtu.be/gP67sJ4PTnc)) 
