@@ -117,7 +117,7 @@ mbufq_empty(struct mbufq *q)
   return q->head == 0;
 }
 
-// Intializes a queue of mbufs.
+// Initializes a queue of mbufs.
 void
 mbufq_init(struct mbufq *q)
 {
