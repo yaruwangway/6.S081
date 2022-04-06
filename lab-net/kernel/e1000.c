@@ -114,8 +114,10 @@ e1000_transmit(struct mbuf *m)
    * the E1000 hasn't finished the corresponding previous transmission request,
    * so return an error. */
   struct tx_desc *txdesc = &tx_ring[tdt];
-  if (txdesc->status != E1000_TXD_STAT_DD)
+  if (txdesc->status != E1000_TXD_STAT_DD) {
+    release(&e1000_lock);
     return -1;
+  }
 
   /** Otherwise, use mbuffree() to free the last mbuf
    * that was transmitted from that descriptor (if there was one). */
@@ -155,7 +157,44 @@ e1000_recv(void)
   // Check for packets that have arrived from the e1000
   // Create and deliver an mbuf for each packet (using net_rx()).
   //
-  printf("e1000_recv\n");
+
+  acquire(&e1000_lock);
+
+  /** First ask the E1000 for the ring index
+   * at which the next waiting received packet (if any) is located,
+   * by fetching the E1000_RDT control register and adding one modulo RX_RING_SIZE. */
+  uint32 rdt = (regs[E1000_RDT] + 1) % RX_RING_SIZE;
+
+  /** Then check if a new packet is available
+   * by checking for the E1000_RXD_STAT_DD bit in the status portion of the descriptor.
+   * If not, stop. */
+  struct rx_desc *rxdesc = &rx_ring[rdt];
+  if ((rxdesc->status & E1000_RXD_STAT_DD) != E1000_RXD_STAT_DD) {
+    release(&e1000_lock);
+    return;
+  }
+
+  /** Otherwise, update the mbuf's m->len to the length reported in the descriptor.
+   * Deliver the mbuf to the network stack using net_rx(). */
+  struct mbuf *m = rx_mbufs[rdt];
+  m->len = rxdesc->length;
+
+  /** Then allocate a new mbuf using mbufalloc() to replace the one just given to net_rx().
+   * Program its data pointer (m->head) into the descriptor.
+   * Clear the descriptor's status bits to zero. */
+  rx_mbufs[rdt] = mbufalloc(0);
+  if (!rx_mbufs[rdt])
+    panic("e1000_recv mbufalloc");
+  rx_ring[rdt].addr = (uint64) rx_mbufs[rdt]->head;
+  rx_ring[rdt].status = 0;
+
+  /** Finally, update the E1000_RDT register to be the index of the last ring descriptor processed. */
+  regs[E1000_RDT] = rdt;
+
+  release(&e1000_lock);
+
+  // IMPORTANT: deliver mbuf out of lock's critical section
+  net_rx(m);
 }
 
 void
