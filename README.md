@@ -112,7 +112,7 @@
         [kernel/sysfile.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/sysfile.c), 
         [kernel/file.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/file.c) and 
         ["File system" (except for the logging sections)](https://pdos.csail.mit.edu/6.S081/2021/xv6-book-riscv-rev2.pdf) 
-  - [ ] Assignment: [Lab net: Network driver](https://pdos.csail.mit.edu/6.S081/2021/labs/net.html)
+  - [x] Assignment: [Lab net: Network driver](https://pdos.csail.mit.edu/6.S081/2021/labs/net.html)
 
 - [ ] LEC 15: Crash recovery 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-crash.txt), 
