@@ -107,7 +107,7 @@
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-fs.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-fs.pdf), 
       [video](https://youtu.be/ADzLv1nRtR8)) 
-  - [ ] Preparation: Read [kernel/bio.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/bio.c), 
+  - [x] Preparation: Read [kernel/bio.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/bio.c), 
         [kernel/fs.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/fs.c), 
         [kernel/sysfile.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/sysfile.c), 
         [kernel/file.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/file.c) and 
