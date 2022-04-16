@@ -103,7 +103,7 @@
 
 - [x] LEC 13: [Q&A labs](https://pdos.csail.mit.edu/6.S081/2021/slides/6s081-lec-qa2.pdf) 
 
-- [ ] LEC 14: File systems 
+- [x] LEC 14: File systems 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-fs.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-fs.pdf), 
       [video](https://youtu.be/ADzLv1nRtR8)) 
