@@ -114,7 +114,7 @@
         ["File system" (except for the logging sections)](https://pdos.csail.mit.edu/6.S081/2021/xv6-book-riscv-rev2.pdf) 
   - [x] Assignment: [Lab net: Network driver](https://pdos.csail.mit.edu/6.S081/2021/labs/net.html)
 
-- [ ] LEC 15: Crash recovery 
+- [x] LEC 15: Crash recovery 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-crash.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-crash.pdf), 
       [video](https://youtu.be/7Hk2dIorDkk)) 
