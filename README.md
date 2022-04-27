@@ -120,7 +120,7 @@
       [video](https://youtu.be/7Hk2dIorDkk)) 
   - [x] Preparation: Read [kernel/log.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/log.c) and the logging sections of "File system" 
 
-- [ ] LEC 16: File system performance and fast crash recovery 
+- [x] LEC 16: File system performance and fast crash recovery 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-journal.txt), 
       [video](https://youtu.be/CmDcf6rjFb4)) 
   - [x] Preparation: Read [Journaling the Linux ext2fs Filesystem (1998)](https://pdos.csail.mit.edu/6.S081/2021/readings/journal-ext2fs.html) 
