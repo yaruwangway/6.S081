@@ -130,6 +130,18 @@ test0()
 
   for(int i = 0; i < NCHILD; i++){
     wait(0);
+    // cleanup
+    dir[0] = '0' + i;
+    if (chdir(dir) < 0) {
+      printf("chdir failed\n");
+      exit(1);
+    }
+    unlink(file);
+    if (chdir("..") < 0) {
+      printf("chdir failed\n");
+      exit(1);
+    }
+    unlink(dir);
   }
   printf("test0 results:\n");
   n = ntas(1);

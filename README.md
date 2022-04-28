@@ -136,7 +136,7 @@
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-organization.txt), 
       [video](https://youtu.be/dM9PLdaTpnA)) 
   - [ ] Preparation: Read [The Performance of micro-Kernel-Based Systems (1997)](https://pdos.csail.mit.edu/6.S081/2021/readings/microkernel.pdf) 
-  - [ ] Assignment: [Lab lock: Parallelism/locking](https://pdos.csail.mit.edu/6.S081/2021/labs/lock.html)
+  - [x] Assignment: [Lab lock: Parallelism/locking](https://pdos.csail.mit.edu/6.S081/2021/labs/lock.html)
 
 - [ ] LEC 19: Virtual Machines 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-vmm.txt), 

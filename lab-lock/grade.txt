@@ -1,0 +1,24 @@
+make: 'kernel/kernel' is up to date.
+== Test running kalloctest == 
+$ make qemu-gdb
+(71.5s) 
+== Test   kalloctest: test1 == 
+  kalloctest: test1: OK 
+== Test   kalloctest: test2 == 
+  kalloctest: test2: OK 
+== Test kalloctest: sbrkmuch == 
+$ make qemu-gdb
+kalloctest: sbrkmuch: OK (7.8s) 
+== Test running bcachetest == 
+$ make qemu-gdb
+(6.6s) 
+== Test   bcachetest: test0 == 
+  bcachetest: test0: OK 
+== Test   bcachetest: test1 == 
+  bcachetest: test1: OK 
+== Test usertests == 
+$ make qemu-gdb
+usertests: OK (109.1s) 
+== Test time == 
+time: OK 
+Score: 70/70

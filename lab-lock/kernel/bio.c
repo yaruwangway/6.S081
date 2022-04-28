@@ -23,32 +23,51 @@
 #include "fs.h"
 #include "buf.h"
 
+#define NBUCKET 13
+#define hash(dev, blockno) (((dev+1) * (blockno+1)) % NBUCKET)
+
+extern uint ticks;
+
+struct bbucket {
+  struct spinlock lock; // lock protects bucket list and buf(dev, blockno, refcnt, ts) in the list
+  struct buf head; // each bucket is a double-linked cyclic linked list
+};
+
 struct {
-  struct spinlock lock;
   struct buf buf[NBUF];
 
-  // Linked list of all buffers, through prev/next.
-  // Sorted by how recently the buffer was used.
-  // head.next is most recent, head.prev is least.
-  struct buf head;
+  struct spinlock lock; // lock protects buf[NBUF] resource pool and synchronize access when eviction
+  struct bbucket buckets[NBUCKET];
 } bcache;
+
+/**
+ * install buf at bucket head
+ */
+void
+install_buf_into_bucket(struct bbucket *bucket, struct buf *buf)
+{
+  buf->next = bucket->head.next;
+  buf->prev = &bucket->head;
+  bucket->head.next->prev = buf;
+  bucket->head.next = buf;
+}
 
 void
 binit(void)
 {
-  struct buf *b;
-
   initlock(&bcache.lock, "bcache");
 
-  // Create linked list of buffers
-  bcache.head.prev = &bcache.head;
-  bcache.head.next = &bcache.head;
-  for(b = bcache.buf; b < bcache.buf+NBUF; b++){
-    b->next = bcache.head.next;
-    b->prev = &bcache.head;
+  for(struct buf *b = bcache.buf; b < bcache.buf+NBUF; b++){
     initsleeplock(&b->lock, "buffer");
-    bcache.head.next->prev = b;
-    bcache.head.next = b;
+  }
+  // init each bucket lock and bucket list
+  for (int i = 0; i < NBUCKET; i++) {
+    initlock(&bcache.buckets[i].lock, "bcache.bucket");
+    bcache.buckets[i].head.next = bcache.buckets[i].head.prev = &bcache.buckets[i].head;
+  }
+  // evenly distribute empty bufs into all buckets
+  for (int i = 0; i < NBUF; i++) {
+    install_buf_into_bucket(&bcache.buckets[i%NBUCKET], &bcache.buf[i]);
   }
 }
 
@@ -59,12 +78,55 @@ static struct buf*
 bget(uint dev, uint blockno)
 {
   struct buf *b;
+  uint bucket_idx = hash(dev, blockno);
+  struct buf *victim = 0;
+  uint min_ts = ticks+1;
+
+  acquire(&bcache.buckets[bucket_idx].lock);
+  for(b = bcache.buckets[bucket_idx].head.next; b != &bcache.buckets[bucket_idx].head; b = b->next){
+    // Is the block already cached in its bucket list?
+    if(b->dev == dev && b->blockno == blockno){
+      b->refcnt++;
+      release(&bcache.buckets[bucket_idx].lock);
+      acquiresleep(&b->lock);
+      return b;
+    }
+    // or select a min-timestamp victim in this bucket list if any
+    if (b->refcnt == 0 && b->ts < min_ts) {
+      min_ts = b->ts;
+      victim = b;
+    }
+  }
+  // found a victim in **THIS SAME** bucket, do nothing but set block metadata
+  if ((b=victim)) {
+    // set new block
+    b->dev = dev;
+    b->blockno = blockno;
+    b->valid = 0;
+    b->refcnt = 1;
+    release(&bcache.buckets[bucket_idx].lock);
+    acquiresleep(&b->lock);
+    return b;
+  }
+  release(&bcache.buckets[bucket_idx].lock);
+
+  // Not cached, **steal** from other bucket
 
   acquire(&bcache.lock);
-
-  // Is the block already cached?
-  for(b = bcache.head.next; b != &bcache.head; b = b->next){
-    if(b->dev == dev && b->blockno == blockno){
+  /**
+   * select same dev and blockno buf if any
+   *
+   * **THERE IS A CHANCE** that two concurrent process both access same block,
+   * but both found **NOT CACHED**, so they both need to acquire bcache.lock
+   * to alloc a new buf and set new data into the buf.
+   * BUT only one process can get lock and do this,
+   * at the time the second process get the lock, the buf it needed is already available,
+   * so the second process only need to scan buf[NBUF] resource pool
+   *
+   * bcache.lock protects this buf[NBUF] resource pool
+   */
+  for (b = bcache.buf; b < bcache.buf+NBUF; b++) {
+    if (b->dev == dev && b->blockno == blockno) { // bcache.lock protects dev and blockno
       b->refcnt++;
       release(&bcache.lock);
       acquiresleep(&b->lock);
@@ -72,20 +134,49 @@ bget(uint dev, uint blockno)
     }
   }
 
-  // Not cached.
-  // Recycle the least recently used (LRU) unused buffer.
-  for(b = bcache.head.prev; b != &bcache.head; b = b->prev){
-    if(b->refcnt == 0) {
-      b->dev = dev;
-      b->blockno = blockno;
-      b->valid = 0;
-      b->refcnt = 1;
-      release(&bcache.lock);
-      acquiresleep(&b->lock);
-      return b;
+  // steal one unused buf from other bucket
+  struct bbucket *bucket;
+  for (int i = 1; i < NBUCKET; i++) {
+    bucket = &bcache.buckets[(bucket_idx+i)%NBUCKET]; // start from next bucket
+    min_ts = ticks+1;
+    acquire(&bucket->lock);
+    for(b = bucket->head.next; b != &bucket->head; b = b->next){
+      if (b->refcnt == 0 && b->ts < min_ts) {
+        min_ts = b->ts;
+        victim = b;
+      }
+    }
+    if (victim) {
+      // hold bucket lock if victim found in the bucket
+      break;
+    } else {
+      release(&bucket->lock);
     }
   }
-  panic("bget: no buffers");
+
+  if (!(b=victim))
+    // at this time, there should be at least one unused buf available as victim
+    panic("bget: no buffers");
+
+  // remove from the bucket
+  b->next->prev = b->prev;
+  b->prev->next = b->next;
+  release(&bucket->lock);
+
+  // set new block
+  b->dev = dev;
+  b->blockno = blockno;
+  b->valid = 0;
+  b->refcnt = 1;
+  release(&bcache.lock); // bcache.lock protects dev and blockno, its protection is finished here
+
+  // install item in new bucket
+  acquire(&bcache.buckets[bucket_idx].lock);
+  install_buf_into_bucket(&bcache.buckets[bucket_idx], b);
+  release(&bcache.buckets[bucket_idx].lock);
+
+  acquiresleep(&b->lock);
+  return b;
 }
 
 // Return a locked buf with the contents of the indicated block.
@@ -121,33 +212,31 @@ brelse(struct buf *b)
 
   releasesleep(&b->lock);
 
-  acquire(&bcache.lock);
+  uint bucket_idx = hash(b->dev, b->blockno);
+
+  acquire(&bcache.buckets[bucket_idx].lock);
   b->refcnt--;
   if (b->refcnt == 0) {
     // no one is waiting for it.
-    b->next->prev = b->prev;
-    b->prev->next = b->next;
-    b->next = bcache.head.next;
-    b->prev = &bcache.head;
-    bcache.head.next->prev = b;
-    bcache.head.next = b;
+    // record access time-stamp
+    // but not remove from current bucket until evicted
+    b->ts = ticks;
   }
-  
-  release(&bcache.lock);
+  release(&bcache.buckets[bucket_idx].lock);
 }
 
 void
 bpin(struct buf *b) {
-  acquire(&bcache.lock);
+  acquire(&bcache.buckets[hash(b->dev, b->blockno)].lock);
   b->refcnt++;
-  release(&bcache.lock);
+  release(&bcache.buckets[hash(b->dev, b->blockno)].lock);
 }
 
 void
 bunpin(struct buf *b) {
-  acquire(&bcache.lock);
+  acquire(&bcache.buckets[hash(b->dev, b->blockno)].lock);
   b->refcnt--;
-  release(&bcache.lock);
+  release(&bcache.buckets[hash(b->dev, b->blockno)].lock);
 }
 
 
