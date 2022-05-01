@@ -125,7 +125,7 @@
       [video](https://youtu.be/CmDcf6rjFb4)) 
   - [x] Preparation: Read [Journaling the Linux ext2fs Filesystem (1998)](https://pdos.csail.mit.edu/6.S081/2021/readings/journal-ext2fs.html) 
 
-- [ ] LEC 17: Virtual memory for applications 
+- [x] LEC 17: Virtual memory for applications 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-uservm.txt), 
       [boards](https://pdos.csail.mit.edu/6.S081/2021/lec/l-uservm.pdf), 
       [video](https://youtu.be/YNQghIvk0jc)) 
