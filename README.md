@@ -132,7 +132,7 @@
       ([baker example](https://pdos.csail.mit.edu/6.S081/2021/lec/baker.c)) 
   - [x] Preparation: Read [Virtual Memory Primitives for User Programs (1991)](https://pdos.csail.mit.edu/6.S081/2021/readings/appel-li.pdf) 
 
-- [ ] LEC 18: OS Organization 
+- [x] LEC 18: OS Organization 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-organization.txt), 
       [video](https://youtu.be/dM9PLdaTpnA)) 
   - [x] Preparation: Read [The Performance of micro-Kernel-Based Systems (1997)](https://pdos.csail.mit.edu/6.S081/2021/readings/microkernel.pdf) 
