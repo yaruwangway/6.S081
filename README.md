@@ -141,7 +141,7 @@
 - [ ] LEC 19: Virtual Machines 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-vmm.txt), 
       [video](https://youtu.be/R8obXHAIPY0)) 
-  - [ ] Preparation: Read [Dune: Safe User-level Access to Privileged CPU Features (2012)](https://pdos.csail.mit.edu/6.S081/2021/readings/belay-dune.pdf) 
+  - [x] Preparation: Read [Dune: Safe User-level Access to Privileged CPU Features (2012)](https://pdos.csail.mit.edu/6.S081/2021/readings/belay-dune.pdf) 
 
 - [ ] LEC 20: Kernels and HLL 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-biscuit.txt), 
