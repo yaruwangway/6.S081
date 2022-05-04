@@ -149,7 +149,7 @@
       [video](https://youtu.be/AAtXWGwxI9k)) 
   - [ ] Preparation: Read [the Biscuit paper (2018)](https://pdos.csail.mit.edu/6.S081/2021/readings/biscuit.pdf), 
         [FAQ](https://pdos.csail.mit.edu/6.S081/2021/lec/faq-biscuit.txt) 
-  - [ ] Assignment: [Lab fs: File system](https://pdos.csail.mit.edu/6.S081/2021/labs/fs.html)
+  - [x] Assignment: [Lab fs: File system](https://pdos.csail.mit.edu/6.S081/2021/labs/fs.html)
 
 - [ ] LEC 21: Networking 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-net.txt), 
