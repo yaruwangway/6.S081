@@ -143,7 +143,7 @@
       [video](https://youtu.be/R8obXHAIPY0)) 
   - [x] Preparation: Read [Dune: Safe User-level Access to Privileged CPU Features (2012)](https://pdos.csail.mit.edu/6.S081/2021/readings/belay-dune.pdf) 
 
-- [ ] LEC 20: Kernels and HLL 
+- [x] LEC 20: Kernels and HLL 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-biscuit.txt), 
       [slides](https://pdos.csail.mit.edu/6.S081/2021/lec/l-biscuit-slides.pdf), 
       [video](https://youtu.be/AAtXWGwxI9k)) 
