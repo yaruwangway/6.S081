@@ -154,7 +154,7 @@
 - [ ] LEC 21: Networking 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-net.txt), 
       [video](https://youtu.be/Fcjychg4Tvk)) 
-  - [ ] Preparation: Read [Receive Livelock (1996)](https://pdos.csail.mit.edu/6.S081/2021/readings/mogul96usenix.pdf) 
+  - [x] Preparation: Read [Receive Livelock (1996)](https://pdos.csail.mit.edu/6.S081/2021/readings/mogul96usenix.pdf) 
   - [ ] Assignment: [Lab mmap: Mmap](https://pdos.csail.mit.edu/6.S081/2021/labs/mmap.html)
 
 - [ ] LEC 22: Meltdown 
