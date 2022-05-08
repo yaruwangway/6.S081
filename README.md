@@ -151,7 +151,7 @@
         [FAQ](https://pdos.csail.mit.edu/6.S081/2021/lec/faq-biscuit.txt) 
   - [x] Assignment: [Lab fs: File system](https://pdos.csail.mit.edu/6.S081/2021/labs/fs.html)
 
-- [ ] LEC 21: Networking 
+- [x] LEC 21: Networking 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-net.txt), 
       [video](https://youtu.be/Fcjychg4Tvk)) 
   - [x] Preparation: Read [Receive Livelock (1996)](https://pdos.csail.mit.edu/6.S081/2021/readings/mogul96usenix.pdf) 
