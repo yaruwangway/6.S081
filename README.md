@@ -165,7 +165,7 @@
 - [ ] LEC 23: Multi-Core scalability and RCU 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-rcu.txt), 
       [video](https://youtu.be/KUwyCGMTeq8)) 
-  - [ ] Preparation: Read [RCU paper (2013)](https://pdos.csail.mit.edu/6.S081/2021/readings/rcu-decade-later.pdf), 
+  - [x] Preparation: Read [RCU paper (2013)](https://pdos.csail.mit.edu/6.S081/2021/readings/rcu-decade-later.pdf), 
         [FAQ](https://pdos.csail.mit.edu/6.S081/2021/lec/rcu-faq.txt) 
 
 - [ ] LEC 24: Current Research: [Radiation Tolerance](https://pdos.csail.mit.edu/6.S081/2021/lec/CelSkeggsRadiationTolerance.pdf) 
