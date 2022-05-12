@@ -157,7 +157,7 @@
   - [x] Preparation: Read [Receive Livelock (1996)](https://pdos.csail.mit.edu/6.S081/2021/readings/mogul96usenix.pdf) 
   - [ ] Assignment: [Lab mmap: Mmap](https://pdos.csail.mit.edu/6.S081/2021/labs/mmap.html)
 
-- [ ] LEC 22: Meltdown 
+- [x] LEC 22: Meltdown 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-meltdown.txt), 
       [video](https://youtu.be/WpKVr3p5rjE)) 
   - [x] Preparation: Read [Meltdown (2018)](https://pdos.csail.mit.edu/6.S081/2021/readings/meltdown.pdf) 
