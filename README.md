@@ -168,5 +168,5 @@
   - [x] Preparation: Read [RCU paper (2013)](https://pdos.csail.mit.edu/6.S081/2021/readings/rcu-decade-later.pdf), 
         [FAQ](https://pdos.csail.mit.edu/6.S081/2021/lec/rcu-faq.txt) 
 
-- [ ] LEC 24: Current Research: [Radiation Tolerance](https://pdos.csail.mit.edu/6.S081/2021/lec/CelSkeggsRadiationTolerance.pdf) 
-  - [ ] Preparation: Read [NASA CALIPSO paper (2006)](https://pdos.csail.mit.edu/6.S081/2021/readings/nasa-calipso-radiation.pdf) for background 
+- [x] LEC 24: Current Research: [Radiation Tolerance](https://pdos.csail.mit.edu/6.S081/2021/lec/CelSkeggsRadiationTolerance.pdf) 
+  - [x] Preparation: Read [NASA CALIPSO paper (2006)](https://pdos.csail.mit.edu/6.S081/2021/readings/nasa-calipso-radiation.pdf) for background 
