@@ -162,7 +162,7 @@
       [video](https://youtu.be/WpKVr3p5rjE)) 
   - [x] Preparation: Read [Meltdown (2018)](https://pdos.csail.mit.edu/6.S081/2021/readings/meltdown.pdf) 
 
-- [ ] LEC 23: Multi-Core scalability and RCU 
+- [x] LEC 23: Multi-Core scalability and RCU 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-rcu.txt), 
       [video](https://youtu.be/KUwyCGMTeq8)) 
   - [x] Preparation: Read [RCU paper (2013)](https://pdos.csail.mit.edu/6.S081/2021/readings/rcu-decade-later.pdf), 
