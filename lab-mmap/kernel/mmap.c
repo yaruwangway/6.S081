@@ -106,19 +106,19 @@ munmap(uint64 addr, uint64 length)
    * or at the end, or the whole region
    * (but not punch a hole in the middle of a region).
    */
-  if (v->addr != addr || (v->addr+v->length) != addr+length)
+  if (v->addr != addr && (v->addr+v->length) != addr+length)
     return -1;
 
+  struct proc *p = myproc();
   // write page back to file, if shared and dirty
   if (v->flags & MAP_SHARED) {
-    uint64 pa;
-    pagetable_t pagetable = myproc()->pagetable;
+    pte_t *pte;
     for (uint64 va = addr; va - addr < length; va += PGSIZE) {
-      pa = walkaddr(pagetable, va);
-      if (pa && (PTE_FLAGS(PA2PTE(pa)) & PTE_D)) {
+      pte = walk(p->pagetable, va, 0);
+      if (pte && (*pte & PTE_U) && (*pte & PTE_V) && (*pte & PTE_D)) {
         begin_op();
         ilock(v->f->ip);
-        writei(v->f->ip, 1, va, va-addr, PGSIZE);
+        writei(v->f->ip, 1, va, va - addr, PGSIZE);
         iunlock(v->f->ip);
         end_op();
       }
@@ -127,12 +127,39 @@ munmap(uint64 addr, uint64 length)
 
   // unmap from page table
   int npages = (PGROUNDDOWN(addr+length) - addr) / PGSIZE;
-  uvmunmap(myproc()->pagetable, addr, npages, 1);
+  uvmunmap(p->pagetable, addr, npages, UNMAP_FLAG_DO_FREE | UNMAP_FLAG_INGORE_INVALID);
 
-  // unmap a whole vma
-  // so close its file to decrement fie ref count, and clean file if necessary
-  if (addr == v->addr && length == v->length)
+  /**
+   * unmap a whole vma
+   * - close its file to decrement fie ref count, and clean file if necessary
+   * - remove from proccess's vma list
+   */
+  if (addr == v->addr && length == v->length) {
     fileclose(v->f);
+
+    struct vma *vp = p->vmas, *prev = 0;
+    for (; vp && vp != v; prev = vp, vp = vp->next)
+      ;
+    if (!vp)
+      panic("munmap: remove from process's vma list");
+
+    // remove from process's vma list
+    if (prev)
+      prev->next = vp->next;
+    else
+      p->vmas = vp->next;
+
+    // return vma back to global vma resource pool
+    acquire(&vmatable.lock);
+    vp->addr = -1;
+    release(&vmatable.lock);
+  }
+  // resize vma
+  else {
+    v->length -= length;
+    if (addr == v->addr)
+      v->addr += length;
+  }
 
   return 0;
 }
@@ -147,7 +174,7 @@ in_vma(uint64 addr)
 {
   struct proc *p = myproc();
   for (struct vma *v = p->vmas; v; v = v->next) {
-    if (addr >= v->addr && addr <= v->addr + v->length)
+    if (addr >= v->addr && addr < v->addr + v->length)
       return v;
   }
   return 0;
@@ -161,7 +188,7 @@ in_vma(uint64 addr)
 int
 alloc_vma(uint64 addr, struct vma *v)
 {
-  if (addr < v->addr || addr > v->addr + v->length)
+  if (addr < v->addr || addr >= v->addr + v->length)
     panic("alloc vma: addr check");
 
   // alloc physical memory

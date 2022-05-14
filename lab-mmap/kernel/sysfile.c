@@ -506,7 +506,7 @@ sys_mmap(void)
 
   // check file permission with required permission
   if (((prot & PROT_READ) && !f->readable) ||
-      ((prot & PROT_WRITE) && !f->writable) ||
+      ((prot & PROT_WRITE) && !(f->writable || (flags & MAP_PRIVATE))) ||
       ((prot & PROT_EXEC)))
     return -1;
 
