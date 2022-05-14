@@ -59,6 +59,11 @@ OBJS += \
 	$K/pci.o
 endif
 
+ifeq ($(LAB),mmap)
+OBJS += \
+	$K/mmap.o
+endif
+
 
 # riscv64-unknown-elf- or riscv64-linux-gnu-
 # perhaps in /opt/riscv/bin
@@ -247,7 +252,10 @@ UPROGS += \
 	$U/_bigfile
 endif
 
-
+ifeq ($(LAB),mmap)
+UPROGS += \
+	$U/_mmaptest
+endif
 
 ifeq ($(LAB),net)
 UPROGS += \

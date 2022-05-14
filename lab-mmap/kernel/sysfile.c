@@ -484,3 +484,44 @@ sys_pipe(void)
   }
   return 0;
 }
+
+uint64
+sys_mmap(void)
+{
+  uint64 addr, length, offset;
+  int prot, flags, fd;
+  struct file *f;
+
+  if(argaddr(0, &addr) < 0 ||
+    addr != 0 || // assume addr is always NULL
+    argaddr(1, &length) < 0 ||
+    length <= 0 || // length should > 0
+    argint(2, &prot) < 0 ||
+    argint(3, &flags) < 0 ||
+    argaddr(5, &offset) < 0 ||
+    offset != 0 || // assume offset is always zero
+    argfd(4, &fd, &f) < 0
+    )
+    return -1;
+
+  // check file permission with required permission
+  if (((prot & PROT_READ) && !f->readable) ||
+      ((prot & PROT_WRITE) && !f->writable) ||
+      ((prot & PROT_EXEC)))
+    return -1;
+
+  return mmap(addr, length, prot, flags, f);
+}
+
+uint64
+sys_munmap(void)
+{
+  uint64 addr, length;
+
+  if (argaddr(0, &addr) < 0 ||
+    addr % PGSIZE || // addr must be PGSIZE aligned
+    argaddr(1, &length) < 0)
+    return -1;
+
+  return munmap(addr, length);
+}
