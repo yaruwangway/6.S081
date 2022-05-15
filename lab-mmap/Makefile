@@ -61,7 +61,7 @@ endif
 
 ifeq ($(LAB),mmap)
 OBJS += \
-	$K/mmap.o
+	$K/vma.o
 endif
 
 

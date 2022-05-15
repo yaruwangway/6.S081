@@ -5,6 +5,7 @@
 #include "spinlock.h"
 #include "proc.h"
 #include "defs.h"
+#include "vma.h"
 
 struct cpu cpus[NCPU];
 
@@ -164,6 +165,7 @@ freeproc(struct proc *p)
   p->killed = 0;
   p->xstate = 0;
   p->state = UNUSED;
+  p->vmas = 0;
 }
 
 // Create a user page table for a given process,
@@ -289,6 +291,13 @@ fork(void)
   }
   np->sz = p->sz;
 
+  // Copy vma list from parent to child
+  if (vmacopy(p->vmas, &np->vmas) < 0) {
+    freeproc(np);
+    release(&np->lock);
+    return -1;
+  }
+
   // copy saved user registers.
   *(np->trapframe) = *(p->trapframe);
 
@@ -352,6 +361,13 @@ exit(int status)
       p->ofile[fd] = 0;
     }
   }
+
+  // unmap the process's mapped regions
+  for (struct vma *v = p->vmas; v; v = v->next) {
+    if (munmap(v->addr, v->length) == -1)
+      panic("exit: munmap");
+  }
+  p->vmas = 0;
 
   begin_op();
   iput(p->cwd);

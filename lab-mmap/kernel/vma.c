@@ -8,7 +8,7 @@
 #include "fs.h"
 #include "sleeplock.h"
 #include "file.h"
-#include "mmap.h"
+#include "vma.h"
 
 struct {
   struct spinlock lock;
@@ -24,6 +24,30 @@ vmainit()
   }
 }
 
+/**
+ * alloc a vma from global vma resource pool
+ */
+struct vma*
+vmaalloc(uint64 addr)
+{
+  struct vma *v = 0;
+  acquire(&vmatable.lock);
+  for (int i = 0; i < NVMA; i++) {
+    if (vmatable.vma[i].addr == -1) {
+      v = &vmatable.vma[i];
+      v->addr = addr;
+      break;
+    }
+  }
+  release(&vmatable.lock);
+
+  return v;
+}
+
+/**
+ * find an unused region in the process's address space,
+ * to which vma maps to
+ */
 uint64
 vmaaddr(uint64 addr, uint64 length)
 {
@@ -46,6 +70,45 @@ vmaaddr(uint64 addr, uint64 length)
   return PGROUNDDOWN(addr - length); // PGSIZE aligned
 }
 
+/**
+ * copy src vma list to dest
+ */
+int
+vmacopy(struct vma *src, struct vma **dest)
+{
+  struct vma head;
+  head.next = 0;
+  struct vma *p = &head;
+  for (struct vma *v = src; v; v = v->next) {
+    p->next = vmaalloc(v->addr);
+    if (!p->next) // no more vma available
+      goto bad;
+    p = p->next;
+
+    // copy from v
+    p->length = v->length;
+    p->prot = v->prot;
+    p->flags = v->flags;
+    p->f = filedup(v->f);
+    p->next = 0; // BUT dont copy v->next
+  }
+
+  *dest = head.next;
+  return 0;
+
+bad:
+  // return all alloced vmas back to recourse pool
+  acquire(&vmatable.lock);
+  for (struct vma *v = head.next; v; v = v->next)
+    v->addr = -1;
+  release(&vmatable.lock);
+  return -1;
+}
+
+/**
+ * - find an unused region in the process's address space in which to map the file
+ * - add a VMA to the process's table of mapped regions
+ */
 uint64
 mmap(uint64 addr, uint64 length, int prot, int flags, struct file* f)
 {
@@ -53,34 +116,22 @@ mmap(uint64 addr, uint64 length, int prot, int flags, struct file* f)
   if (addr == -1)
     return -1;
 
-  struct vma *region = 0;
-  // find an unused vma
-  acquire(&vmatable.lock);
-  for (int i = 0; i < NVMA; i++) {
-    if (vmatable.vma[i].addr == -1) {
-      region = &vmatable.vma[i];
-      region->addr = addr;
-      break;
-    }
-  }
-  release(&vmatable.lock);
+  struct vma *v = vmaalloc(addr);
+  if (!v)
+    return -1;
 
-  if (region) {
-    // initialize this vma
-    region->length = length;
-    region->prot = prot;
-    region->flags = flags;
-    region->f = filedup(f);
+  // initialize this vma
+  v->length = length;
+  v->prot = prot;
+  v->flags = flags;
+  v->f = filedup(f);
 
-    // install vma into process vma list
-    struct proc *p = myproc();
-    region->next = p->vmas;
-    p->vmas = region;
+  // install vma into process vma list
+  struct proc *p = myproc();
+  v->next = p->vmas;
+  p->vmas = v;
 
-    return addr;
-  }
-
-  return -1;
+  return addr;
 }
 
 /**

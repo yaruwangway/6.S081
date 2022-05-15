@@ -8,6 +8,7 @@ struct spinlock;
 struct sleeplock;
 struct stat;
 struct superblock;
+struct vma;
 
 // bio.c
 void            binit(void);
@@ -185,6 +186,7 @@ void            virtio_disk_intr(void);
 
 // mmap.c
 void            vmainit(void);
+int             vmacopy(struct vma*, struct vma**);
 uint64          mmap(uint64, uint64, int, int, struct file*);
 uint64          munmap(uint64, uint64);
 struct vma*     in_vma(uint64);

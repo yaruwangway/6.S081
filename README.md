@@ -159,7 +159,7 @@ Course taken in the period of 2022 Shanghai COVID-19 lockdown
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-net.txt), 
       [video](https://youtu.be/Fcjychg4Tvk)) 
   - [x] Preparation: Read [Receive Livelock (1996)](https://pdos.csail.mit.edu/6.S081/2021/readings/mogul96usenix.pdf) 
-  - [ ] Assignment: [Lab mmap: Mmap](https://pdos.csail.mit.edu/6.S081/2021/labs/mmap.html)
+  - [x] Assignment: [Lab mmap: Mmap](https://pdos.csail.mit.edu/6.S081/2021/labs/mmap.html)
 
 - [x] LEC 22: Meltdown 
       (2020: [notes](https://pdos.csail.mit.edu/6.S081/2021/lec/l-meltdown.txt), 

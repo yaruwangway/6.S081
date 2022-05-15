@@ -71,7 +71,7 @@ usertrap(void)
     if (p->killed)
       exit(-1);
     struct vma *v;
-    if ((v = in_vma(r_stval())) != 0 && alloc_vma(r_stval(), v) < 0) {
+    if ((v = in_vma(r_stval())) == 0 || alloc_vma(r_stval(), v) < 0) {
       printf("usertrap(): page fault, scause %p pid=%d\n", scause, p->pid);
       printf("            sepc=%p stval=%p\n", r_sepc(), r_stval());
       p->killed = 1;

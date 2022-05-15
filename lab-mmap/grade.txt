@@ -1,0 +1,26 @@
+make: 'kernel/kernel' is up to date.
+== Test running mmaptest == 
+$ make qemu-gdb
+(1.7s) 
+== Test   mmaptest: mmap f == 
+  mmaptest: mmap f: OK 
+== Test   mmaptest: mmap private == 
+  mmaptest: mmap private: OK 
+== Test   mmaptest: mmap read-only == 
+  mmaptest: mmap read-only: OK 
+== Test   mmaptest: mmap read/write == 
+  mmaptest: mmap read/write: OK 
+== Test   mmaptest: mmap dirty == 
+  mmaptest: mmap dirty: OK 
+== Test   mmaptest: not-mapped unmap == 
+  mmaptest: not-mapped unmap: OK 
+== Test   mmaptest: two files == 
+  mmaptest: two files: OK 
+== Test   mmaptest: fork_test == 
+  mmaptest: fork_test: OK 
+== Test usertests == 
+$ make qemu-gdb
+usertests: OK (101.8s) 
+== Test time == 
+time: OK 
+Score: 140/140
